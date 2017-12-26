@@ -1,0 +1,12 @@
+logging:
+  level:
+    io.yope.ethereum: DEBUG
+
+org.ethereum:
+    address: http://192.168.206.222:8545
+#    address: http://ethereum.yope.io
+
+io.yope:
+    centralAddress:
+    registrationTip: 10000
+    password:
