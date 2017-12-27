@@ -1,16 +1,23 @@
-package io.yope.ethereum.rest.resources;
+package com.mvc.ethereum.rest.resources;
 
-import io.yope.ethereum.model.Account;
-import io.yope.ethereum.rpc.services.EthereumFacade;
+import com.mvc.ethereum.model.Account;
+import com.mvc.ethereum.rpc.services.EthereumFacade;
+import com.mvc.ethereum.service.EthereumService;
+import com.mvc.ethereum.utils.Denomination;
+import org.ethereum.jsonrpc.TypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/accounts")
+@Deprecated
 public class AccountResource {
 
     @Autowired
     private EthereumFacade facade;
+    @Autowired
+    private EthereumService jsonRpc;
+
 
     /**
      * 查询个人账户
@@ -20,6 +27,14 @@ public class AccountResource {
     @RequestMapping(value = "/{address}", method = RequestMethod.GET)
     public @ResponseBody
     EthereumResponse<Account> getAccount(@PathVariable final String address) {
+        String result = null;
+        try {
+            result = jsonRpc.eth_getBalance(address, "latest");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(Denomination.toFriendlyString(TypeConverter.StringHexToBigInteger(result)));
         return new EthereumResponse<Account>(facade.getAccount(address), 200, "OK");
     }
 

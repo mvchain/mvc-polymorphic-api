@@ -1,10 +1,10 @@
-package io.yope.ethereum.rpc.services;
+package com.mvc.ethereum.rpc.services;
 
 import com.cegeka.tetherj.NoSuchContractMethod;
-import io.yope.ethereum.exceptions.ExceededGasException;
-import io.yope.ethereum.model.Account;
-import io.yope.ethereum.model.Receipt;
-import io.yope.ethereum.visitor.BlockchainVisitor;
+import com.mvc.ethereum.exceptions.ExceededGasException;
+import com.mvc.ethereum.model.Account;
+import com.mvc.ethereum.model.Receipt;
+import com.mvc.ethereum.visitor.BlockchainVisitor;
 
 import java.util.concurrent.Future;
 

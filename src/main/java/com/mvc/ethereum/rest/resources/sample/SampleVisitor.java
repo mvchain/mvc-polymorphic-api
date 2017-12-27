@@ -1,7 +1,7 @@
-package io.yope.ethereum.rest.resources.sample;
+package com.mvc.ethereum.rest.resources.sample;
 
-import io.yope.ethereum.model.Method;
-import io.yope.ethereum.visitor.BlockchainVisitor;
+import com.mvc.ethereum.model.Method;
+import com.mvc.ethereum.visitor.BlockchainVisitor;
 
 /**
  * Created by enrico.mariotti on 22/05/2016.

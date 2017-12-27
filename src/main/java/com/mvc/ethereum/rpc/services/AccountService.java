@@ -1,7 +1,7 @@
-package io.yope.ethereum.rpc.services;
+package com.mvc.ethereum.rpc.services;
 
-import io.yope.ethereum.model.Account;
-import io.yope.ethereum.rpc.EthereumRpc;
+import com.mvc.ethereum.model.Account;
+import com.mvc.ethereum.rpc.EthereumRpc;
 import lombok.AllArgsConstructor;
 
 import java.math.BigInteger;

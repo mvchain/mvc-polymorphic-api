@@ -1,12 +1,12 @@
-package io.yope.ethereum.rpc;
+package com.mvc.ethereum.rpc;
 
 import com.cegeka.tetherj.pojo.CompileOutput;
 import com.cegeka.tetherj.pojo.Transaction;
 import com.cegeka.tetherj.pojo.TransactionCall;
-import io.yope.ethereum.model.Block;
-import io.yope.ethereum.model.EthTransaction;
-import io.yope.ethereum.model.Filter;
-import io.yope.ethereum.model.Receipt;
+import com.mvc.ethereum.model.Block;
+import com.mvc.ethereum.model.EthTransaction;
+import com.mvc.ethereum.model.Filter;
+import com.mvc.ethereum.model.Receipt;
 
 public interface ContractRpc {
 

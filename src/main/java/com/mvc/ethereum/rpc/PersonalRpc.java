@@ -1,4 +1,4 @@
-package io.yope.ethereum.rpc;
+package com.mvc.ethereum.rpc;
 
 public interface PersonalRpc {
     String personal_newAccount(String passphrase);

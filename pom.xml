@@ -16,7 +16,7 @@
     </parent>
 
     <properties>
-        <start-class>io.yope.ethereum.rest.EthereumApplication</start-class>
+        <start-class>com.mvc.ethereum.rest.EthereumApplication</start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -31,6 +31,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <dependency>
                 <groupId>io.yope</groupId>
                 <artifactId>yope-ethereum-rest</artifactId>
@@ -102,6 +103,13 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.ethereum</groupId>
+            <artifactId>ethereumj-core</artifactId>
+            <version>1.5.0-RELEASE</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

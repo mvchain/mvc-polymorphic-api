@@ -1,4 +1,4 @@
-package io.yope.ethereum.rest.resources;
+package com.mvc.ethereum.rest.resources;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

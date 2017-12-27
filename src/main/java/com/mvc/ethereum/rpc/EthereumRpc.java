@@ -1,4 +1,4 @@
-package io.yope.ethereum.rpc;
+package com.mvc.ethereum.rpc;
 
 public interface EthereumRpc extends WalletRpc, ContractRpc, PersonalRpc {
 }

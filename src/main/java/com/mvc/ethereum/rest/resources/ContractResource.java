@@ -1,10 +1,10 @@
-package io.yope.ethereum.rest.resources;
+package com.mvc.ethereum.rest.resources;
 
 import com.cegeka.tetherj.NoSuchContractMethod;
-import io.yope.ethereum.exceptions.ExceededGasException;
-import io.yope.ethereum.model.Receipt;
-import io.yope.ethereum.rest.resources.sample.SampleVisitor;
-import io.yope.ethereum.rpc.services.BlockchainFacade;
+import com.mvc.ethereum.exceptions.ExceededGasException;
+import com.mvc.ethereum.model.Receipt;
+import com.mvc.ethereum.rest.resources.sample.SampleVisitor;
+import com.mvc.ethereum.rpc.services.BlockchainFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

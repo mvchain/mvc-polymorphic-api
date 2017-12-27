@@ -1,4 +1,4 @@
-package io.yope.ethereum.rpc.services;
+package com.mvc.ethereum.rpc.services;
 
 import com.cegeka.tetherj.EthCall;
 import com.cegeka.tetherj.EthSmartContract;
@@ -8,19 +8,19 @@ import com.cegeka.tetherj.crypto.CryptoUtil;
 import com.cegeka.tetherj.pojo.CompileOutput;
 import com.cegeka.tetherj.pojo.ContractData;
 import com.cegeka.tetherj.pojo.Transaction;
-import io.yope.ethereum.exceptions.ExceededGasException;
-import io.yope.ethereum.model.EthTransaction;
-import io.yope.ethereum.model.Receipt;
-import io.yope.ethereum.rpc.EthereumRpc;
-import io.yope.ethereum.visitor.BlockchainVisitor;
+import com.mvc.ethereum.model.EthTransaction;
+import com.mvc.ethereum.exceptions.ExceededGasException;
+import com.mvc.ethereum.model.Receipt;
+import com.mvc.ethereum.rpc.EthereumRpc;
+import com.mvc.ethereum.visitor.BlockchainVisitor;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.MessageFormat;
 import java.util.concurrent.*;
 
-import static io.yope.ethereum.utils.EthereumUtil.adapt;
-import static io.yope.ethereum.utils.EthereumUtil.decryptQuantity;
+import static com.mvc.ethereum.utils.EthereumUtil.adapt;
+import static com.mvc.ethereum.utils.EthereumUtil.decryptQuantity;
 
 @AllArgsConstructor
 @Slf4j

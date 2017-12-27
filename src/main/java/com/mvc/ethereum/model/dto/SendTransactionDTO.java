@@ -2,19 +2,16 @@ package com.mvc.ethereum.model.dto;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 @Data
 public class SendTransactionDTO {
 
     private String pass;
     private String from;
     private String to;
-    private BigInteger gas;
-    private BigInteger gasPrice;
-    private BigDecimal value;
+    private String gas;
+    private String gasPrice;
+    private String value;
     private String data;
-    private BigInteger nonce;
+    private String nonce;
 
 }
