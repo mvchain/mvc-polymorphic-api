@@ -31,7 +31,6 @@
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>io.yope</groupId>
                 <artifactId>yope-ethereum-rest</artifactId>
@@ -103,6 +102,27 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.web3j/core -->
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.web3j/core -->
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>geth</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.web3j/parity -->
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>parity</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>org.ethereum</groupId>

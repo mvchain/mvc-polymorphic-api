@@ -19,10 +19,6 @@ public class ContractServiceTest {
     private static final String accountAddress = "0x03733b713032e9040d04acd4720bedaa717378df";
     private static String contractAddress = "";
 
-    private ContractService contractService;
-
-    private AccountService accountService;
-
     BlockchainVisitor visitor;
 
     private Method create = VisitorFactory.buildMethod(Optional.empty(), Optional.of(new Object[]{5}));

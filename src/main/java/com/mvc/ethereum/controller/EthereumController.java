@@ -1,11 +1,13 @@
 package com.mvc.ethereum.controller;
 
-import com.mvc.ethereum.model.dto.BalanceDTO;
-import com.mvc.ethereum.model.dto.SendTransactionDTO;
-import com.mvc.ethereum.model.dto.TransactionByHashDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mvc.ethereum.model.dto.*;
 import com.mvc.ethereum.service.RpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.web3j.crypto.*;
+import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.utils.Convert;
 
 /**
  * 目前demoe先所有放在一起
@@ -41,19 +43,61 @@ public class EthereumController {
 
     /**
      * 发起事物
+     *
      * @param sendTransactionDTO
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "eth_sendTransaction", method = RequestMethod.POST)
     public Object eth_sendTransaction(@RequestBody SendTransactionDTO sendTransactionDTO) throws Exception {
-        return rpcService.eth_sendTransaction(sendTransactionDTO.getPass(), sendTransactionDTO.getFrom(), sendTransactionDTO.getTo(), sendTransactionDTO.getGas(), sendTransactionDTO.getGasPrice(), sendTransactionDTO.getValue(), sendTransactionDTO.getData(), sendTransactionDTO.getNonce());
+        Transaction transaction = new Transaction(sendTransactionDTO.getFrom(), sendTransactionDTO.getNonce(), sendTransactionDTO.getGasPrice(), sendTransactionDTO.getGas(), sendTransactionDTO.getTo(),
+                Convert.toWei(sendTransactionDTO.getValue(), Convert.Unit.ETHER).toBigInteger(),
+                sendTransactionDTO.getData());
+        return rpcService.eth_sendTransaction(transaction, sendTransactionDTO.getPass());
     }
 
+    /**
+     * 查询账号列表
+     *
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "personal_listAccounts", method = RequestMethod.POST)
     public Object personal_listAccounts() throws Exception {
         return rpcService.personal_listAccounts();
     }
 
+    /**
+     * 创建账户
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "personal_newAccount", method = RequestMethod.POST)
+    public Object personal_newAccount(@RequestBody NewAccountDTO newAccountDTO) throws Exception {
+        return rpcService.personal_newAccount(newAccountDTO.getPassphrase());
+    }
+
+    /**
+     * 导入key
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "personal_importRawKey", method = RequestMethod.POST)
+    public Object personal_importRawKey(@RequestBody ImportRawKeyDTO importRawKeyDTO) throws Exception {
+        return rpcService.personal_importRawKey(importRawKeyDTO.getKeydata(), importRawKeyDTO.getPassphrase());
+    }
+
+    /**
+     * 导出key
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "parity_ExportAccount", method = RequestMethod.POST)
+    public Object parityExportAccount(@RequestBody ExportAccountDTO exportAccountDTO) throws Exception {
+        return rpcService.parityExportAccount(exportAccountDTO.getAddress(), exportAccountDTO.getPassphrase());
+    }
 
 }
