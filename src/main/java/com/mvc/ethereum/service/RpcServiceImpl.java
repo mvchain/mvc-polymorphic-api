@@ -1,6 +1,7 @@
 package com.mvc.ethereum.service;
 
 import com.mvc.ethereum.utils.Denomination;
+import com.mvc.ethereum.utils.RSACoder;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.tomcat.util.buf.HexUtils;
 import org.ethereum.jsonrpc.JsonRpc;
@@ -65,6 +66,7 @@ public class RpcServiceImpl implements RpcService {
 
     @Override
     public Object eth_sendTransaction(Transaction transaction, String pass) throws Exception {
+        pass = new String(RSACoder.decryptByPrivateKey(pass, RSACoder.getPrivateKey()));
         PersonalUnlockAccount flag = admin.personalUnlockAccount(transaction.getFrom(), pass).send();
         Assert.isTrue(flag.accountUnlocked(), "unlock error");
         EthSendTransaction response = admin.ethSendTransaction(transaction).send();
@@ -86,6 +88,7 @@ public class RpcServiceImpl implements RpcService {
 
     @Override
     public Object personal_newAccount(String passhphrase) throws Exception {
+        passhphrase = new String(RSACoder.decryptByPrivateKey(passhphrase, RSACoder.getPrivateKey()));
         NewAccountIdentifier response = admin.personalNewAccount(passhphrase).send();
         geth.personalUnlockAccount(response.getAccountId(), passhphrase).send();
         return response;

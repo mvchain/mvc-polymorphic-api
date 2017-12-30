@@ -3,11 +3,14 @@ package com.mvc.ethereum.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvc.ethereum.model.dto.*;
 import com.mvc.ethereum.service.RpcService;
+import com.mvc.ethereum.utils.RSACoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.web3j.crypto.*;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.utils.Convert;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 目前demoe先所有放在一起
@@ -26,7 +29,7 @@ public class EthereumController {
      * @return
      */
     @RequestMapping(value = "eth_getBalance", method = RequestMethod.POST)
-    public Object eth_getBalance(@RequestBody final BalanceDTO balanceDTO) throws Exception {
+    public Object eth_getBalance(HttpServletRequest request, @RequestBody final BalanceDTO balanceDTO) throws Exception {
         return rpcService.eth_getBalance(balanceDTO.getAddress(), balanceDTO.getBlockId());
     }
 
@@ -98,6 +101,17 @@ public class EthereumController {
     @RequestMapping(value = "parity_ExportAccount", method = RequestMethod.POST)
     public Object parityExportAccount(@RequestBody ExportAccountDTO exportAccountDTO) throws Exception {
         return rpcService.parityExportAccount(exportAccountDTO.getAddress(), exportAccountDTO.getPassphrase());
+    }
+
+    /**
+     * 获取公钥
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "publicKey", method = RequestMethod.POST)
+    public Object publicKey() throws Exception {
+        return RSACoder.getPublicKey();
     }
 
 }

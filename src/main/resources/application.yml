@@ -13,4 +13,8 @@ com.mvc:
     registrationTip: 10000
     password: mvc123$%^
 server:
-  port: 8081
+  port: 8080
+
+cors:
+#  allowedOrigin: '*'
+  allowedOrigin: *
