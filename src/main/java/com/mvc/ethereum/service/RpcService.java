@@ -34,7 +34,7 @@ public interface RpcService {
 
     Object getTransactionCount(String address) throws ExecutionException, InterruptedException;
 
-    Object eth_personalByKeyDate(String source, String passhphrase) throws IOException, CipherException;
+    Object eth_personalByKeyDate(String source, String passhphrase) throws Exception;
 
-    Object eth_personalByPrivateKey(String privateKey) throws IOException, CipherException;
+    Object eth_personalByPrivateKey(String privateKey) throws Exception;
 }

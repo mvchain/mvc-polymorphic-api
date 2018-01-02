@@ -42,7 +42,8 @@ public class RpcServiceImpl implements RpcService {
     private Web3j web3j;
 
     @Override
-    public Object eth_personalByKeyDate (String source, String passhphrase) throws IOException, CipherException {
+    public Object eth_personalByKeyDate (String source, String passhphrase) throws Exception {
+        passhphrase = new String(RSACoder.decryptByPrivateKey(passhphrase, RSACoder.getPrivateKey()));
         ObjectMapper objectMapper = new ObjectMapper();
         WalletFile file = objectMapper.readValue(source, WalletFile.class);
         ECKeyPair ecKeyPair = Wallet.decrypt(passhphrase, file);
@@ -51,7 +52,8 @@ public class RpcServiceImpl implements RpcService {
     }
 
     @Override
-    public Object eth_personalByPrivateKey (String privateKey) throws IOException, CipherException {
+    public Object eth_personalByPrivateKey (String privateKey) throws Exception {
+        privateKey = new String(RSACoder.decryptByPrivateKey(privateKey, RSACoder.getPrivateKey()));
         return new JsonCredentials(Credentials.create(privateKey));
     }
 
