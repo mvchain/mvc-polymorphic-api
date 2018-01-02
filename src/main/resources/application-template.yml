@@ -7,10 +7,6 @@ org.ethereum:
 #    address: http://192.168.206.229:8545
     address: http://127.0.0.1:8545
 
-com.mvc:
-    centralAddress:
-    registrationTip: 10000
-    password: mvc123$%^
 server:
   port: 8080
 

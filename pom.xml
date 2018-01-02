@@ -16,7 +16,7 @@
     </parent>
 
     <properties>
-        <start-class>com.mvc.ethereum.rest.EthereumApplication</start-class>
+        <start-class>com.mvc.EthereumApplication</start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -195,6 +195,9 @@
     </profiles>
 
     <build>
+        <finalName>
+            ethereum-api
+        </finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
