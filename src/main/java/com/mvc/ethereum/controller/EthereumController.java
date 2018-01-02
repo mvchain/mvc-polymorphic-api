@@ -1,20 +1,21 @@
 package com.mvc.ethereum.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvc.ethereum.model.dto.*;
 import com.mvc.ethereum.service.RpcService;
+import com.mvc.ethereum.utils.FileUtil;
 import com.mvc.ethereum.utils.RSACoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.web3j.crypto.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.utils.Convert;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
 
 /**
- * 目前demoe先所有放在一起
+ * all demo in this controller
  */
 @RestController
 @RequestMapping("ethereum")
@@ -24,7 +25,7 @@ public class EthereumController {
     private RpcService rpcService;
 
     /**
-     * 查询余额
+     * getBalance
      *
      * @param balanceDTO
      * @return
@@ -35,7 +36,7 @@ public class EthereumController {
     }
 
     /**
-     * 根据hash查询订单信息
+     * getTransactionByHash
      *
      * @return
      */
@@ -45,7 +46,7 @@ public class EthereumController {
     }
 
     /**
-     * 发起已签名事物
+     * sendRawTransaction
      *
      * @param rawTransactionDTO
      * @return
@@ -57,7 +58,7 @@ public class EthereumController {
     }
 
     /**
-     * 发起事物
+     * sendTransaction
      *
      * @param sendTransactionDTO
      * @return
@@ -72,7 +73,7 @@ public class EthereumController {
     }
 
     /**
-     * 查询账号列表
+     * search user list
      *
      * @return
      * @throws Exception
@@ -83,7 +84,7 @@ public class EthereumController {
     }
 
     /**
-     * 创建账户
+     * create new Account
      *
      * @return
      * @throws Exception
@@ -94,7 +95,7 @@ public class EthereumController {
     }
 
     /**
-     * 导入key
+     * import key
      *
      * @return
      * @throws Exception
@@ -105,18 +106,7 @@ public class EthereumController {
     }
 
     /**
-     * 导出key
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "parity_ExportAccount", method = RequestMethod.POST)
-    public Object parityExportAccount(@RequestBody ExportAccountDTO exportAccountDTO) throws Exception {
-        return rpcService.parityExportAccount(exportAccountDTO.getAddress(), exportAccountDTO.getPassphrase());
-    }
-
-    /**
-     * 获取公钥
+     * get publickey for RSA
      *
      * @return
      * @throws Exception
@@ -127,7 +117,7 @@ public class EthereumController {
     }
 
     /**
-     * 获取TransactionCount, 用于nonce
+     * get TransactionCount for nonce
      *
      * @return
      * @throws Exception
@@ -135,6 +125,30 @@ public class EthereumController {
     @RequestMapping(value = "transactionCount", method = RequestMethod.POST)
     public Object getTransactionCount(TransactionCountDTO transactionCountDTO) throws Exception {
         return rpcService.getTransactionCount(transactionCountDTO.getAddress());
+    }
+
+    /**
+     * personal by keyDate
+     * @param file
+     * @param passhphrase
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "personalByKeyDate", method = RequestMethod.POST)
+    public Object eth_personalByKeyDate(@RequestParam("file") MultipartFile file, @RequestParam String passhphrase) throws Exception {
+        String source = FileUtil.readFile(file.getInputStream());
+        return rpcService.eth_personalByKeyDate(source, passhphrase);
+    }
+
+    /**
+     * personal by privateKey
+     * @param personalByPrivateKeyDTO
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "personalByPrivateKey", method = RequestMethod.POST)
+    public Object eth_personalByPrivateKey(@RequestBody  PersonalByPrivateKeyDTO personalByPrivateKeyDTO) throws Exception {
+        return rpcService.eth_personalByPrivateKey(personalByPrivateKeyDTO.getPrivateKey());
     }
 
 }

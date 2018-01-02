@@ -1,11 +1,12 @@
 package com.mvc.ethereum.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mvc.ethereum.model.JsonCredentials;
 import com.mvc.ethereum.utils.RSACoder;
-import org.spongycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.springframework.util.NumberUtils;
+import org.springframework.util.ReflectionUtils;
 import org.web3j.crypto.*;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
@@ -20,9 +21,10 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.geth.Geth;
-import org.web3j.utils.Convert;
+import sun.reflect.misc.FieldUtil;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
@@ -40,7 +42,22 @@ public class RpcServiceImpl implements RpcService {
     private Web3j web3j;
 
     @Override
+    public Object eth_personalByKeyDate (String source, String passhphrase) throws IOException, CipherException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        WalletFile file = objectMapper.readValue(source, WalletFile.class);
+        ECKeyPair ecKeyPair = Wallet.decrypt(passhphrase, file);
+        Credentials credentials = Credentials.create(ecKeyPair);
+        return new JsonCredentials(credentials);
+    }
+
+    @Override
+    public Object eth_personalByPrivateKey (String privateKey) throws IOException, CipherException {
+        return new JsonCredentials(Credentials.create(privateKey));
+    }
+
+    @Override
     public Object eth_getBalance(String address, String blockId) throws Exception {
+//        admin.ethGetStorageAt(address, BigInteger.ZERO, DefaultBlockParameterName.LATEST).send()
         EthGetBalance response = web3j.ethGetBalance(address, DefaultBlockParameter.valueOf(blockId)).send();
         BigDecimal result = fromWei(String.valueOf(response.getBalance()), Unit.ETHER);
         return result;
@@ -85,9 +102,6 @@ public class RpcServiceImpl implements RpcService {
 
     @Override
     public Object personal_importRawKey(String keydata, String passphrase) throws Exception {
-        // 以下代码用于文件类型的导入, 暂时不处理
-//        Credentials str = WalletUtils.loadCredentials(passphrase, "C:\\Users\\ethands\\AppData\\Roaming\\Ethereum\\rinkeby\\keystore\\keystore\\UTC--2017-12-27T14-10-16.272460400Z--58f103adabe28d60febfb2fb732fef8c7acdbda3");
-//        str.getEcKeyPair().getPrivateKey().toString(16);
         passphrase = new String(RSACoder.decryptByPrivateKey(passphrase, RSACoder.getPrivateKey()));
         keydata = new String(RSACoder.decryptByPrivateKey(keydata, RSACoder.getPrivateKey()));
         return geth.personalImportRawKey(keydata, passphrase).send();
@@ -104,4 +118,6 @@ public class RpcServiceImpl implements RpcService {
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
         return nonce;
     }
+
+
 }

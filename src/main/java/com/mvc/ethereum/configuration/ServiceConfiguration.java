@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @ComponentScan(basePackages = {
-        "com.mvc.ethereum.rpc.services"
+        "com.mvc.ethereum"
 })
 @EnableConfigurationProperties
 public class ServiceConfiguration {
@@ -22,5 +22,6 @@ public class ServiceConfiguration {
 
     @Value("${com.mvc.password}")
     private String password;
+
 
 }

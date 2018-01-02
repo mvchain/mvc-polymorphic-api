@@ -33,4 +33,8 @@ public interface RpcService {
     Object ethSendRawTransaction(String signedMessage) throws Exception;
 
     Object getTransactionCount(String address) throws ExecutionException, InterruptedException;
+
+    Object eth_personalByKeyDate(String source, String passhphrase) throws IOException, CipherException;
+
+    Object eth_personalByPrivateKey(String privateKey) throws IOException, CipherException;
 }
