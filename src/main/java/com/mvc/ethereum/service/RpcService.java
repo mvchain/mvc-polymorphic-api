@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 远程调用
@@ -30,4 +31,6 @@ public interface RpcService {
     Object parityExportAccount(String address, String passphrase) throws IOException;
 
     Object ethSendRawTransaction(String signedMessage) throws Exception;
+
+    Object getTransactionCount(String address) throws ExecutionException, InterruptedException;
 }

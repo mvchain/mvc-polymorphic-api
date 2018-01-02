@@ -25,6 +25,7 @@ import org.web3j.utils.Convert;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.concurrent.ExecutionException;
 
 import static org.web3j.utils.Convert.Unit;
 import static org.web3j.utils.Convert.fromWei;
@@ -37,12 +38,6 @@ public class RpcServiceImpl implements RpcService {
     private Geth geth;
     @Autowired
     private Web3j web3j;
-
-//    static final Credentials ALICE = Credentials.create(
-//            "1bbd568c95b4bc2fb75056921b781adc66dad3471d25d90e002849c46b8ef400",  // 32 byte hex value
-//            "0x58f103AdABe28D60febfB2fB732FEf8C7aCDbDa3"  // 64 byte hex value
-//    );
-
 
     @Override
     public Object eth_getBalance(String address, String blockId) throws Exception {
@@ -103,4 +98,10 @@ public class RpcServiceImpl implements RpcService {
         return null;
     }
 
+    @Override
+    public Object getTransactionCount(String address) throws ExecutionException, InterruptedException {
+        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(address, DefaultBlockParameterName.LATEST).sendAsync().get();
+        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+        return nonce;
+    }
 }

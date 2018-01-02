@@ -126,4 +126,15 @@ public class EthereumController {
         return RSACoder.getPublicKey();
     }
 
+    /**
+     * 获取TransactionCount, 用于nonce
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "publicKey", method = RequestMethod.POST)
+    public Object getTransactionCount(TransactionCountDTO transactionCountDTO) throws Exception {
+        return rpcService.getTransactionCount(transactionCountDTO.getAddress());
+    }
+
 }
