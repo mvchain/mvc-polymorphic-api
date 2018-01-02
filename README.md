@@ -1,3 +1,2 @@
-<<<<<<< HEAD
-# 钱包demo
-=======
+# wallet demo
+about Ethereum

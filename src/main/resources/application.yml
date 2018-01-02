@@ -6,7 +6,6 @@ logging:
 org.ethereum:
 #    address: http://192.168.206.229:8545
     address: http://127.0.0.1:8545
-#    address: http://ethereum.yope.io
 
 com.mvc:
     centralAddress:
