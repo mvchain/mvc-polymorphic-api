@@ -65,35 +65,12 @@ public class RpcServiceImpl implements RpcService {
         PersonalUnlockAccount flag = admin.personalUnlockAccount(transaction.getFrom(), pass).send();
         Assert.isTrue(flag.accountUnlocked(), "unlock error");
         EthSendTransaction response = admin.ethSendTransaction(transaction).send();
-
-//        web3j.ethSendTransaction(transaction);
-//        boolean flag = ethereumService.personal_unlockAccount(from, pass);
-
-//        JsonRpc.CallArguments callArguments = new JsonRpc.CallArguments();
-//        callArguments.data = "0x";
-//        callArguments.from = transaction.getFrom();
-//        callArguments.gas = null == transaction.getGas() ? transaction.getGas() : String.valueOf(Denomination.getFriendlyValue(NumberUtils.createBigDecimal(transaction.getGas())));
-//        callArguments.gasPrice = null == transaction.getGasPrice() ? transaction.getGasPrice() : String.valueOf(Denomination.getFriendlyValue(NumberUtils.createBigDecimal(transaction.getGasPrice())));
-//        callArguments.to = transaction.getTo();
-//        callArguments.nonce = transaction.getNonce();
-//        callArguments.value = TypeConverter.toJsonHex(Denomination.getFriendlyValue(NumberUtils.createBigDecimal(transaction.getValue())).toString(16));
-//        String result = ethereumService.eth_sendTransaction(callArguments);
         return response;
     }
 
     @Override
     public Object ethSendRawTransaction(String signedMessage) throws Exception {
-//        PersonalUnlockAccount flag = admin.personalUnlockAccount("0x8bb2a0e428b681053b06fa341366c490cceb210f", "mvc123$%^").send();
-        ECKeyPair pair = WalletUtils.loadCredentials("mvc123$%^", "C:\\Users\\ethands\\AppData\\Roaming\\Ethereum\\UTC--2018-01-02T07-07-58.461782100Z--36204d77cbbaa85e25f0a18856fee7054083730b").getEcKeyPair();
-        Credentials ALICE = Credentials.create(pair);
-        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
-                ALICE.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
-        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-        RawTransaction rawTransaction  = RawTransaction.createEtherTransaction(
-                nonce, NumberUtils.parseNumber("3000000000", BigInteger.class),NumberUtils.parseNumber("90000", BigInteger.class), "0xad837b3c9c34295e797d94fb421c4b9280fc6d1f", Convert.toWei("0.3", Convert.Unit.ETHER).toBigInteger());
-        byte[] signedMessage2 = TransactionEncoder.signMessage(rawTransaction, ALICE);
-        String hexValue = Hex.toHexString(signedMessage2);
-        EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction("0x" + hexValue).send();
+        EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(signedMessage).send();
         return ethSendTransaction;
     }
 
