@@ -123,7 +123,7 @@ public class EthereumController {
      * @throws Exception
      */
     @RequestMapping(value = "transactionCount", method = RequestMethod.POST)
-    public Object getTransactionCount(TransactionCountDTO transactionCountDTO) throws Exception {
+    public Object getTransactionCount(@RequestBody TransactionCountDTO transactionCountDTO) throws Exception {
         return rpcService.getTransactionCount(transactionCountDTO.getAddress());
     }
 
