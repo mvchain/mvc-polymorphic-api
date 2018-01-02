@@ -1,0 +1,1 @@
+contract sample { uint storedData = {0} ; function set(uint x) { storedData = x; } function get() constant returns (uint retVal) { return storedData; } }
