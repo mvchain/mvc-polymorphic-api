@@ -12,6 +12,7 @@ build/
 mods/
 .idea/libraries
 *.DS_Store
+application.yml
 
 *.class
 
