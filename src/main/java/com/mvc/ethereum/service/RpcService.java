@@ -3,6 +3,7 @@ package com.mvc.ethereum.service;
 import org.ethereum.jsonrpc.JsonRpc;
 import org.web3j.crypto.CipherException;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthTransaction;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -24,7 +25,9 @@ public interface RpcService {
 
     Object personal_listAccounts() throws IOException;
 
-    Object personal_importRawKey(String keydata, String passphrase) throws IOException, NoSuchProviderException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, CipherException;
+    Object personal_importRawKey(String keydata, String passphrase) throws Exception;
 
     Object parityExportAccount(String address, String passphrase) throws IOException;
+
+    Object ethSendRawTransaction(String signedMessage) throws Exception;
 }

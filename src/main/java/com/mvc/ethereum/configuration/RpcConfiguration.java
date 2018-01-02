@@ -13,7 +13,6 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.geth.Geth;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.protocol.parity.Parity;
 
 import java.net.MalformedURLException;
 
@@ -39,11 +38,6 @@ public class RpcConfiguration {
     @Bean
     public Geth geth() {
         return  Geth.build(new HttpService(ethereumAddress));
-    }
-
-    @Bean
-    public Parity parity() {
-        return  Parity.build(new HttpService(ethereumAddress));
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.web3j.crypto.*;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.utils.Convert;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +44,17 @@ public class EthereumController {
         return rpcService.eth_getTransactionByHash(transactionByHashDTO.getTransactionHash());
     }
 
+    /**
+     * 发起已签名事物
+     *
+     * @param rawTransactionDTO
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "eth_sendRawTransaction", method = RequestMethod.POST)
+    public Object ethSendRawTransaction(@RequestBody RawTransactionDTO rawTransactionDTO) throws Exception {
+        return rpcService.ethSendRawTransaction(rawTransactionDTO.getSignedMessage());
+    }
 
     /**
      * 发起事物
