@@ -6,8 +6,10 @@ import com.mvc.ethereum.utils.RSACoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.springframework.util.ReflectionUtils;
-import org.web3j.crypto.*;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Wallet;
+import org.web3j.crypto.WalletFile;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.NewAccountIdentifier;
@@ -21,10 +23,8 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.geth.Geth;
-import sun.reflect.misc.FieldUtil;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
@@ -68,7 +68,6 @@ public class RpcServiceImpl implements RpcService {
     @Override
     public Object eth_getTransactionByHash(String transactionHash) throws Exception {
         EthTransaction response = web3j.ethGetTransactionByHash(transactionHash).send();
-
         return response;
     }
 
