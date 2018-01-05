@@ -1,3 +1,5 @@
+server:
+  context-path: /mvc
 
 logging:
   level:
