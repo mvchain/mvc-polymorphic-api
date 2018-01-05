@@ -151,10 +151,4 @@ public class EthereumController {
         return rpcService.eth_personalByPrivateKey(personalByPrivateKeyDTO.getPrivateKey());
     }
 
-    @RequestMapping(value = "eventLog", method = RequestMethod.POST)
-    public Object eventLog(@RequestBody  TransactionCountDTO transactionCountDTO) throws Exception {
-        return rpcService.eventLog(transactionCountDTO.getAddress());
-    }
-
-
 }

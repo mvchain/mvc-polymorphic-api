@@ -1,5 +1,6 @@
 package com.mvc.ethereum.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.web3j.protocol.core.methods.request.Transaction;
 
 import java.io.IOException;
@@ -34,6 +35,5 @@ public interface RpcService {
 
     Object eth_sendTransaction(Transaction transaction, String pass, String contractAddress) throws Exception;
 
-    Object eventLog(String address) throws IOException;
-
+    Object txList(String address);
 }

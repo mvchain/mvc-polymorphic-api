@@ -1,5 +1,6 @@
 package com.mvc.ethereum.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvc.ethereum.model.HumanStandardToken;
 import com.mvc.ethereum.model.NodeConfiguration;
 import com.mvc.ethereum.model.TransactionResponse;
@@ -152,10 +153,11 @@ public class ContractService {
         return null;
     }
 
-    public long balanceOf(String contractAddress, String ownerAddress) {
+    public Object balanceOf(String contractAddress, String ownerAddress) {
         HumanStandardToken humanStandardToken = load(contractAddress);
         try {
-            return extractLongValue(humanStandardToken.balanceOf(new Address(ownerAddress)));
+            Uint256 balance = humanStandardToken.balanceOf(new Address(ownerAddress));
+            return balance.getValue();
         } catch (IOException e) {
             e.printStackTrace();
         }
