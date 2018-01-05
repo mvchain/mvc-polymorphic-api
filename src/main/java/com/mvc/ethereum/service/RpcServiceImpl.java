@@ -96,7 +96,6 @@ public class RpcServiceImpl implements RpcService {
 
     @Override
     public Object eth_sendTransaction(Transaction transaction, String pass) throws Exception {
-//        RSACoder.encryptBASE64(RSACoder.encryptByPublicKey("mvc123$%^",RSACoder.getPublicKey()))
         pass = new String(RSACoder.decryptByPrivateKey(pass, RSACoder.getPrivateKey()));
         PersonalUnlockAccount flag = admin.personalUnlockAccount(transaction.getFrom(), pass).send();
         Assert.isTrue(flag.accountUnlocked(), "unlock error");

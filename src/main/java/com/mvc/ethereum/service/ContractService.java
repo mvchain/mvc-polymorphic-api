@@ -108,12 +108,6 @@ public class ContractService {
     }
 
     public TransactionResponse<TransferEventResponse> transferFrom(List<String> privateFor, String contractAddress, String from, String to, long value) {
-        try {
-            PersonalUnlockAccount rs = admin.personalUnlockAccount("0x58f103AdABe28D60febfB2fB732FEf8C7aCDbDa3", "mvc123$%^", BigInteger.valueOf(10000000)).send();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         HumanStandardToken humanStandardToken = load(contractAddress, privateFor);
         try {
             TransactionReceipt transactionReceipt = humanStandardToken
@@ -178,8 +172,6 @@ public class ContractService {
 
     public TransactionResponse<TransferEventResponse> transfer(
             List<String> privateFor, String contractAddress, String to, long value) throws IOException {
-        PersonalUnlockAccount rs = admin.personalUnlockAccount("0x58f103AdABe28D60febfB2fB732FEf8C7aCDbDa3", "mvc123$%^", BigInteger.valueOf(10000000)).send();
-
         HumanStandardToken humanStandardToken = load(contractAddress, privateFor);
         try {
             TransactionReceipt transactionReceipt = humanStandardToken

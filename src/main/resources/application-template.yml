@@ -13,3 +13,14 @@ server:
 cors:
 #  allowedOrigin: '*'
   allowedOrigin: '*'
+
+swagger:
+  enabled: false
+  title: mvc-api-demo
+  description: mvc-api-demo
+  base-package:  com.mvc.ethereum.controller
+  base-path: /**
+  exclude-path: /error,/ops/**
+  version: @project.version@
+
+trans.log.url: http://rinkeby.etherscan.io/api
