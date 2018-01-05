@@ -3,7 +3,6 @@
  */
 package com.mvc.ethereum.configuration;
 
-import com.mvc.ethereum.service.EthereumService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,8 +12,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.geth.Geth;
 import org.web3j.protocol.http.HttpService;
-
-import java.net.MalformedURLException;
+import org.web3j.quorum.Quorum;
 
 @Configuration
 @EnableConfigurationProperties
@@ -40,4 +38,8 @@ public class RpcConfiguration {
         return  Geth.build(new HttpService(ethereumAddress));
     }
 
+    @Bean
+    public Quorum quorum() {
+        return Quorum.build(new HttpService(ethereumAddress));
+    }
 }

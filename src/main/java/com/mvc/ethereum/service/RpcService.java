@@ -1,18 +1,12 @@
 package com.mvc.ethereum.service;
 
-import org.ethereum.jsonrpc.JsonRpc;
-import org.web3j.crypto.CipherException;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthTransaction;
 
 import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.util.concurrent.ExecutionException;
 
 /**
- * 远程调用
+ * remote service
  */
 public interface RpcService {
 
@@ -37,4 +31,9 @@ public interface RpcService {
     Object eth_personalByKeyDate(String source, String passhphrase) throws Exception;
 
     Object eth_personalByPrivateKey(String privateKey) throws Exception;
+
+    Object eth_sendTransaction(Transaction transaction, String pass, String contractAddress) throws Exception;
+
+    Object eventLog(String address) throws IOException;
+
 }
