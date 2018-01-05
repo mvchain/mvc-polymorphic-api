@@ -7,6 +7,8 @@ import com.mvc.ethereum.model.TransactionResponse;
 import com.mvc.ethereum.utils.RSACoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
@@ -80,7 +82,6 @@ public class RpcServiceImpl implements RpcService {
 
     @Override
     public Object eth_getBalance(String address, String blockId) throws Exception {
-        admin.personalUnlockAccount(address, "mvc123$%^").send();
 //        admin.ethGetStorageAt(address, BigInteger.ZERO, DefaultBlockParameterName.LATEST).send()
         EthGetBalance response = web3j.ethGetBalance(address, DefaultBlockParameter.valueOf(blockId)).send();
         BigDecimal result = fromWei(String.valueOf(response.getBalance()), Unit.ETHER);
@@ -169,7 +170,11 @@ public class RpcServiceImpl implements RpcService {
 
     @Override
     public Object txList(String address) {
+
+
         String url = transLogUrl + String.format( EtherscanUrl.txlist, address);
-        return restTemplate.getForEntity(url, String.class);
+        ResponseEntity<String> response = new RestTemplate().exchange(url, HttpMethod.GET, null, String.class);
+        System.out.println(response.getHeaders());
+        return response.getBody();
     }
 }

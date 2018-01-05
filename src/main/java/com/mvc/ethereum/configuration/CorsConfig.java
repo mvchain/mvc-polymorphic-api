@@ -1,11 +1,12 @@
 package com.mvc.ethereum.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 /**
  * 本机联调跨域问题
@@ -18,7 +19,8 @@ public class CorsConfig {
 
 	private CorsConfiguration buildConfig() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.addAllowedOrigin(allowedOrigin); // 1
+		corsConfiguration.setAllowedOrigins(Arrays.asList(allowedOrigin));
+//		corsConfiguration.setAllowedOrigin(allowedOrigin); // 1
 		corsConfiguration.addAllowedHeader("*"); // 2
 		corsConfiguration.addAllowedMethod("*"); // 3
 		return corsConfiguration;
@@ -30,4 +32,5 @@ public class CorsConfig {
 		source.registerCorsConfiguration("/**", buildConfig()); // 4
 		return new org.springframework.web.filter.CorsFilter(source);
 	}
+
 }
