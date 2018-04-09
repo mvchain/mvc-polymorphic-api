@@ -19,6 +19,8 @@ public interface RpcService {
 
     Object personal_newAccount(String passhphrase) throws Exception;
 
+    Object eth_sendTransaction(Transaction transaction, String pass, String contractAddress) throws Exception;
+
     Object personal_listAccounts() throws IOException;
 
     Object personal_importRawKey(String keydata, String passphrase) throws Exception;
@@ -32,8 +34,6 @@ public interface RpcService {
     Object eth_personalByKeyDate(String source, String passhphrase) throws Exception;
 
     Object eth_personalByPrivateKey(String privateKey) throws Exception;
-
-    Object eth_sendTransaction(Transaction transaction, String pass, String contractAddress) throws Exception;
 
     Object txList(String address);
 }
