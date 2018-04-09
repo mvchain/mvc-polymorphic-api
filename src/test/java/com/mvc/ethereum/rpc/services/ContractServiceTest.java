@@ -1,8 +1,8 @@
 package com.mvc.ethereum.rpc.services;
 
-import com.mvc.ethereum.visitor.VisitorFactory;
-import com.mvc.ethereum.visitor.BlockchainVisitor;
-import com.mvc.ethereum.model.Method;
+import com.mvc.polymorphic.visitor.VisitorFactory;
+import com.mvc.polymorphic.visitor.BlockchainVisitor;
+import com.mvc.polymorphic.model.Method;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 

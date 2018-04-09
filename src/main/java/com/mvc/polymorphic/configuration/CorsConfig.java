@@ -1,0 +1,36 @@
+package com.mvc.polymorphic.configuration;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+
+/**
+ * 本机联调跨域问题
+ */
+@Configuration
+public class CorsConfig {
+
+	@Value("${cors.allowedOrigin}")
+	private String allowedOrigin;
+
+	private CorsConfiguration buildConfig() {
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowedOrigins(Arrays.asList(allowedOrigin));
+//		corsConfiguration.setAllowedOrigin(allowedOrigin); // 1
+		corsConfiguration.addAllowedHeader("*"); // 2
+		corsConfiguration.addAllowedMethod("*"); // 3
+		return corsConfiguration;
+	}
+
+	@Bean
+	public org.springframework.web.filter.CorsFilter corsFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", buildConfig()); // 4
+		return new org.springframework.web.filter.CorsFilter(source);
+	}
+
+}
