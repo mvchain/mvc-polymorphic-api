@@ -27,27 +27,27 @@ public abstract class BlockChainService implements CommandLineRunner {
         return getService(serviceName).getBalance(address);
     }
 
-    abstract BlockResult getBalance(String address);
+    protected abstract BlockResult getBalance(String address);
 
 
     public BlockResult getTransactionByHash(String serviceName, String transactionHash) {
         return getService(serviceName).getTransactionByHash(transactionHash);
     }
 
-    abstract BlockResult getTransactionByHash(String transactionHash);
+    protected abstract BlockResult getTransactionByHash(String transactionHash);
 
     public BlockResult sendTransaction(String serviceName, String pass, String from, String to, BigDecimal value) {
         return getService(serviceName).sendTransaction(pass, from, to, value);
     }
 
-    abstract BlockResult sendTransaction(String pass, String from, String to, BigDecimal value);
+    protected abstract BlockResult sendTransaction(String pass, String from, String to, BigDecimal value);
 
     public BlockResult newAccount(String serviceName, String pass) {
         return getService(serviceName).newAccount(pass);
     }
 
-    abstract BlockResult newAccount(String pass);
+    protected abstract BlockResult newAccount(String pass);
 
-    abstract void onTransaction();
+    protected abstract void onTransaction();
 
 }

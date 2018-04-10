@@ -9,8 +9,8 @@ package com.mvc.polymorphic.utils;
 public class BlockServiceUtil {
 
     public enum BlockService {
-        ETH("ETH", "ETHService"),
-        BTC("BTC", "BTCService"),
+        ETH("ETH", "EthService"),
+        BTC("BTC", "BtcService"),
         ;
         private String type;
         private String serviceName;

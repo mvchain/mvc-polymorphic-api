@@ -1,16 +1,49 @@
 server:
   context-path: /mvc
+  port: 1989
 
 logging:
   level:
     com.mvc.ethereum: DEBUG
 
+mvc:
+  env:
+    # all property has the preference over any other config bellow.
+    all: local
+    btc: local
+    eth: local
+    xrp: local
+    bch: local
+    ltc: local
+    eos: local
+    ada: local
+    bcx: local
+    xlm: local
+    neo: local
+    iota: local
+    xmr: local
+    dash: local
+    trx: local
+    usdt: local
+    xem: local
+    bnb: local
+    etc: local
+    ven: local
+    xbg: local
+    qtum: local
+    omg: local
+    ont: local
+  url:
+    eth:
+      local: http://127.0.0.1:8545
+      test: http://47.254.22.105:8545
+      prod: https://mvchain.xyz
+
+
 org.ethereum:
 #    address: http://192.168.206.229:8545
-    address: http://127.0.0.1:8545
+  address: http://127.0.0.1:8545
 
-server:
-  port: 8080
 
 cors:
 #  allowedOrigin: '*'
