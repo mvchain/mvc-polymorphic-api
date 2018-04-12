@@ -32,7 +32,7 @@ public class BtcService extends BlockChainService {
     }
 
     @Override
-    public void onTransaction() {
+    public void onTransaction(Object... objects) {
 
     }
 

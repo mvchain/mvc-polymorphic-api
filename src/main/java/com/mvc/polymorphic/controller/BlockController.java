@@ -1,14 +1,16 @@
 package com.mvc.polymorphic.controller;
 
 import com.mvc.polymorphic.common.BlockChainService;
+import com.mvc.polymorphic.common.BlockResult;
+import com.mvc.polymorphic.model.dto.NewAccountDTO;
+import com.mvc.polymorphic.model.dto.SendTransactionDTO;
 import com.mvc.polymorphic.utils.BlockServiceUtil;
-import net.bytebuddy.asm.Advice;
+import com.mvc.tools.controller.BaseController;
+import com.mvc.tools.pojo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * block controller
@@ -18,14 +20,36 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/token")
-public class BlockController {
+public class BlockController extends BaseController {
 
     @Autowired
     private BlockChainService blockChainService;
 
     @GetMapping("/{type}/{address}")
-    public Object getBalance(@PathVariable String type, @PathVariable String address) {
+    public Result<BlockResult> getBalance(@PathVariable String type, @PathVariable String address) {
         String serviceName = BlockServiceUtil.getServiceName(type);
-        return blockChainService.getBalance(serviceName, address);
+        BlockResult result = blockChainService.getBalance(serviceName, address);
+        return success(result);
+    }
+
+    @GetMapping("/{type}/hash/{hash}")
+    public Result<BlockResult> getTransactionByHash(@PathVariable String type, @PathVariable String hash) {
+        String serviceName = BlockServiceUtil.getServiceName(type);
+        BlockResult result = blockChainService.getTransactionByHash(serviceName, hash);
+        return success(result);
+    }
+
+    @PostMapping("/{type}/account")
+    public Result<BlockResult> newAccount(@PathVariable String type, @Valid @RequestBody NewAccountDTO newAccountDTO) {
+        String serviceName = BlockServiceUtil.getServiceName(type);
+        BlockResult result = blockChainService.newAccount(serviceName, newAccountDTO.getPassphrase());
+        return success(result);
+    }
+
+    @PostMapping("/{type}/transaction")
+    public Result<BlockResult> sendTransaction(@PathVariable String type, @Valid @RequestBody SendTransactionDTO sendTransactionDTO) {
+        String serviceName = BlockServiceUtil.getServiceName(type);
+        BlockResult result = blockChainService.sendTransaction(serviceName, sendTransactionDTO.getPass(), sendTransactionDTO.getFrom(), sendTransactionDTO.getTo(), sendTransactionDTO.getValue());
+        return success(result);
     }
 }

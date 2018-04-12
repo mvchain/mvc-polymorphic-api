@@ -19,6 +19,7 @@ public class TokenConfig {
     private Map<String, String> env = new HashMap<>();
 
     private Map<String, Map<String, String>> url = new HashMap<>();
-
+    private Map<String, Map<String, String>> path = new HashMap<>();
+    private Map<String, Map<String, String>> pass = new HashMap<>();
 
 }

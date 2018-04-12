@@ -39,7 +39,7 @@ public class EthService extends BlockChainService {
     }
 
     @Override
-    protected void onTransaction() {
+    protected void onTransaction(Object... objects) {
 
     }
 

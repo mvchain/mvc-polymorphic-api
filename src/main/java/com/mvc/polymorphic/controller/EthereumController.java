@@ -62,13 +62,13 @@ public class EthereumController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "eth_sendTransaction", method = RequestMethod.POST)
-    public Object eth_sendTransaction(@RequestBody SendTransactionDTO sendTransactionDTO) throws Exception {
-        Transaction transaction = new Transaction(sendTransactionDTO.getFrom(), sendTransactionDTO.getNonce(), sendTransactionDTO.getGasPrice(), sendTransactionDTO.getGas(), sendTransactionDTO.getTo(),
-                Convert.toWei(sendTransactionDTO.getValue(), Convert.Unit.ETHER).toBigInteger(),
-                sendTransactionDTO.getData());
-        return rpcService.eth_sendTransaction(transaction, sendTransactionDTO.getPass());
-    }
+//    @RequestMapping(value = "eth_sendTransaction", method = RequestMethod.POST)
+//    public Object eth_sendTransaction(@RequestBody SendTransactionDTO sendTransactionDTO) throws Exception {
+//        Transaction transaction = new Transaction(sendTransactionDTO.getFrom(), sendTransactionDTO.getNonce(), sendTransactionDTO.getGasPrice(), sendTransactionDTO.getGas(), sendTransactionDTO.getTo(),
+//                Convert.toWei(sendTransactionDTO.getValue(), Convert.Unit.ETHER).toBigInteger(),
+//                sendTransactionDTO.getData());
+//        return rpcService.eth_sendTransaction(transaction, sendTransactionDTO.getPass());
+//    }
 
     /**
      * search user list

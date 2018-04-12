@@ -1,5 +1,4 @@
 server:
-  context-path: /mvc
   port: 1989
 
 logging:
@@ -38,7 +37,16 @@ mvc:
       local: http://127.0.0.1:8545
       test: http://47.254.22.105:8545
       prod: https://mvchain.xyz
-
+  path:
+    bch:
+      local: 'E:\bitblock\bitcoincashj-blocks\'
+      test: '\opt\bitblock\bitcoincashj-blocks\'
+      prod: '\opt\bitblock\bitcoincashj-blocks\'
+  pass:
+    bch:
+      local: 123456
+      test: 123456
+      prod: 123456
 
 org.ethereum:
 #    address: http://192.168.206.229:8545

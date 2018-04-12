@@ -11,6 +11,7 @@ public class BlockServiceUtil {
     public enum BlockService {
         ETH("ETH", "EthService"),
         BTC("BTC", "BtcService"),
+        BCH("BCH", "BchService"),
         ;
         private String type;
         private String serviceName;
@@ -34,7 +35,7 @@ public class BlockServiceUtil {
     }
 
     public static String getServiceName(String type) {
-        return BlockService.fromType(type);
+        return BlockService.fromType(type.toUpperCase());
     }
 
 }

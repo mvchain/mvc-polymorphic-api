@@ -1,5 +1,6 @@
 package com.mvc.polymorphic.common;
 
+import com.mvc.polymorphic.configuration.TokenConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import java.math.BigDecimal;
 @Service
 public abstract class BlockChainService implements CommandLineRunner {
 
+    @Autowired
+    protected TokenConfig tokenConfig;
     @Autowired
     protected BlockConfig blockConfig;
 
@@ -28,7 +31,6 @@ public abstract class BlockChainService implements CommandLineRunner {
     }
 
     protected abstract BlockResult getBalance(String address);
-
 
     public BlockResult getTransactionByHash(String serviceName, String transactionHash) {
         return getService(serviceName).getTransactionByHash(transactionHash);
@@ -48,6 +50,13 @@ public abstract class BlockChainService implements CommandLineRunner {
 
     protected abstract BlockResult newAccount(String pass);
 
-    protected abstract void onTransaction();
+    protected abstract void onTransaction(Object... objects);
 
+    protected BlockResult tokenSuccess(String tokenName, Object result) {
+        return new BlockResult(tokenName, true, null, result);
+    }
+
+    protected BlockResult tokenFail(String tokenName, String msg) {
+        return new BlockResult(tokenName, false, msg, null);
+    }
 }

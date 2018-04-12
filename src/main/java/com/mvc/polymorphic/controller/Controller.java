@@ -32,13 +32,13 @@ public class Controller {
         return ContractService.balanceOf(contractAddress, balanceDTO.getAddress());
     }
 
-    @RequestMapping(value = "/{contractAddress}/eth_sendTransaction", method = RequestMethod.POST)
-    public Object approveAndCall(@PathVariable String contractAddress, @RequestBody SendTransactionDTO sendTransactionDTO) throws Exception {
-        Transaction transaction = new Transaction(sendTransactionDTO.getFrom(), sendTransactionDTO.getNonce(), sendTransactionDTO.getGasPrice(), sendTransactionDTO.getGas(), sendTransactionDTO.getTo(),
-                sendTransactionDTO.getValue().toBigInteger(),
-                sendTransactionDTO.getData());
-        return rpcService.eth_sendTransaction(transaction, sendTransactionDTO.getPass(), contractAddress);
-    }
+//    @RequestMapping(value = "/{contractAddress}/eth_sendTransaction", method = RequestMethod.POST)
+//    public Object approveAndCall(@PathVariable String contractAddress, @RequestBody SendTransactionDTO sendTransactionDTO) throws Exception {
+//        Transaction transaction = new Transaction(sendTransactionDTO.getFrom(), sendTransactionDTO.getNonce(), sendTransactionDTO.getGasPrice(), sendTransactionDTO.getGas(), sendTransactionDTO.getTo(),
+//                sendTransactionDTO.getValue().toBigInteger(),
+//                sendTransactionDTO.getData());
+//        return rpcService.eth_sendTransaction(transaction, sendTransactionDTO.getPass(), contractAddress);
+//    }
 
     @RequestMapping(value = "/{contractAddress}/txList", method = RequestMethod.POST)
     private Object txList(@PathVariable String contractAddress, @RequestBody TransactionCountDTO transactionCountDTO) {

@@ -2,19 +2,23 @@ package com.mvc.polymorphic.model.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
+/**
+ * @author ethands
+ */
 @Data
-public class SendTransactionDTO {
-
+public class SendTransactionDTO implements Serializable {
+    private static final long serialVersionUID = 6477321453043666156L;
+    @NotNull
     private String pass;
+    @NotNull
     private String from;
+    @NotNull
     private String to;
-    private BigInteger gas;
-    private BigInteger gasPrice;
+    @NotNull
     private BigDecimal value;
-    private String data;
-    private BigInteger nonce;
 
 }
