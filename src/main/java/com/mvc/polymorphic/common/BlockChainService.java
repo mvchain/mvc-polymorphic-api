@@ -1,12 +1,11 @@
 package com.mvc.polymorphic.common;
 
 import com.mvc.polymorphic.configuration.TokenConfig;
-import com.mvc.polymorphic.model.Block;
+import com.mvc.tools.context.BaseContextHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
@@ -28,7 +27,7 @@ public abstract class BlockChainService implements CommandLineRunner {
         return service;
     }
 
-    public BlockResult getBalance(String serviceName, String address)throws Exception {
+    public BlockResult getBalance(String serviceName, String address) throws Exception {
         return getService(serviceName).getBalance(address);
     }
 
@@ -52,7 +51,7 @@ public abstract class BlockChainService implements CommandLineRunner {
 
     protected abstract BlockResult newAccount(String pass);
 
-    public BlockResult getConfirmation(String serviceName,String transactionHash)throws Exception {
+    public BlockResult getConfirmation(String serviceName, String transactionHash) throws Exception {
         return getService(serviceName).getConfirmation(transactionHash);
     }
 
@@ -66,5 +65,9 @@ public abstract class BlockChainService implements CommandLineRunner {
 
     protected BlockResult tokenFail(String tokenName, String msg) {
         return new BlockResult(tokenName, false, msg, null);
+    }
+
+    protected String getType() {
+        return (String) BaseContextHandler.get("type");
     }
 }

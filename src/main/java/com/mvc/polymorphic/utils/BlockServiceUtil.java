@@ -1,5 +1,7 @@
 package com.mvc.polymorphic.utils;
 
+import com.mvc.tools.context.BaseContextHandler;
+
 /**
  * block service util
  *
@@ -35,6 +37,7 @@ public class BlockServiceUtil {
     }
 
     public static String getServiceName(String type) {
+        BaseContextHandler.set("type", type);
         return BlockService.fromType(type.toUpperCase());
     }
 
