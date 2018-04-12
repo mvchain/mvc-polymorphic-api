@@ -4,6 +4,7 @@ server:
 logging:
   level:
     com.mvc.ethereum: DEBUG
+    com.mvc.bitcoincashj: ERROR
 
 mvc:
   env:
