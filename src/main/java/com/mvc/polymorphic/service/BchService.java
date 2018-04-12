@@ -91,6 +91,11 @@ public class BchService extends BlockChainService {
     }
 
     @Override
+    protected BlockResult getConfirmation(String transactionHash) {
+        return null;
+    }
+
+    @Override
     protected void onTransaction(Object... objects) {
         System.out.println("db save");
     }

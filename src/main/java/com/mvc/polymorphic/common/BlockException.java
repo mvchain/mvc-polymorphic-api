@@ -14,4 +14,8 @@ public class BlockException extends RuntimeException {
     public BlockException(String msg) {
         super(msg);
     }
+
+    public BlockException(String msg, Exception e) {
+        super(msg, e);
+    }
 }

@@ -32,6 +32,11 @@ public class BtcService extends BlockChainService {
     }
 
     @Override
+    protected BlockResult getConfirmation(String transactionHash) {
+        return null;
+    }
+
+    @Override
     public void onTransaction(Object... objects) {
 
     }

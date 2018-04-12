@@ -33,7 +33,7 @@ public class BlockController extends BaseController {
     }
 
     @GetMapping("/{type}/hash/{hash}")
-    public Result<BlockResult> getTransactionByHash(@PathVariable String type, @PathVariable String hash) {
+    public Result<BlockResult> getTransactionByHash(@PathVariable String type, @PathVariable String hash) throws Exception {
         String serviceName = BlockServiceUtil.getServiceName(type);
         BlockResult result = blockChainService.getTransactionByHash(serviceName, hash);
         return success(result);
@@ -47,7 +47,7 @@ public class BlockController extends BaseController {
     }
 
     @PostMapping("/{type}/transaction")
-    public Result<BlockResult> sendTransaction(@PathVariable String type, @Valid @RequestBody SendTransactionDTO sendTransactionDTO) {
+    public Result<BlockResult> sendTransaction(@PathVariable String type, @Valid @RequestBody SendTransactionDTO sendTransactionDTO) throws Exception {
         String serviceName = BlockServiceUtil.getServiceName(type);
         BlockResult result = blockChainService.sendTransaction(serviceName, sendTransactionDTO.getPass(), sendTransactionDTO.getFrom(), sendTransactionDTO.getTo(), sendTransactionDTO.getValue());
         return success(result);

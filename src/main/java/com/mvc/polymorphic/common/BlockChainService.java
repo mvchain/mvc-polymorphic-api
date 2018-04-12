@@ -1,6 +1,7 @@
 package com.mvc.polymorphic.common;
 
 import com.mvc.polymorphic.configuration.TokenConfig;
+import com.mvc.polymorphic.model.Block;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
@@ -33,23 +34,29 @@ public abstract class BlockChainService implements CommandLineRunner {
 
     protected abstract BlockResult getBalance(String address) throws Exception;
 
-    public BlockResult getTransactionByHash(String serviceName, String transactionHash) {
+    public BlockResult getTransactionByHash(String serviceName, String transactionHash) throws Exception {
         return getService(serviceName).getTransactionByHash(transactionHash);
     }
 
-    protected abstract BlockResult getTransactionByHash(String transactionHash);
+    protected abstract BlockResult getTransactionByHash(String transactionHash) throws Exception;
 
-    public BlockResult sendTransaction(String serviceName, String pass, String from, String to, BigDecimal value) {
+    public BlockResult sendTransaction(String serviceName, String pass, String from, String to, BigDecimal value) throws Exception {
         return getService(serviceName).sendTransaction(pass, from, to, value);
     }
 
-    protected abstract BlockResult sendTransaction(String pass, String from, String to, BigDecimal value);
+    protected abstract BlockResult sendTransaction(String pass, String from, String to, BigDecimal value) throws Exception;
 
     public BlockResult newAccount(String serviceName, String pass) {
         return getService(serviceName).newAccount(pass);
     }
 
     protected abstract BlockResult newAccount(String pass);
+
+    public BlockResult getConfirmation(String serviceName,String transactionHash)throws Exception {
+        return getService(serviceName).getConfirmation(transactionHash);
+    }
+
+    protected abstract BlockResult getConfirmation(String transactionHash);
 
     protected abstract void onTransaction(Object... objects);
 
