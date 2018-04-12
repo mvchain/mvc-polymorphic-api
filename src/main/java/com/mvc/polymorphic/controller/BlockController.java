@@ -39,6 +39,13 @@ public class BlockController extends BaseController {
         return success(result);
     }
 
+    @GetMapping("/{type}/confirmation/{hash}")
+    public Result<BlockResult> getconfirmation(@PathVariable String type, @PathVariable String hash) throws Exception {
+        String serviceName = BlockServiceUtil.getServiceName(type);
+        BlockResult result = blockChainService.getConfirmation(serviceName, hash);
+        return success(result);
+    }
+
     @PostMapping("/{type}/account")
     public Result<BlockResult> newAccount(@PathVariable String type, @Valid @RequestBody NewAccountDTO newAccountDTO) {
         String serviceName = BlockServiceUtil.getServiceName(type);

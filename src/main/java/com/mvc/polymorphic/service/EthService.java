@@ -64,11 +64,6 @@ public class EthService extends BlockChainService {
     protected BlockResult getTransactionByHash(String transactionHash) throws Exception {
         EthTransaction ethTransaction = web3j.ethGetTransactionByHash(transactionHash).send();
         BlockResult blockResult = new BlockResult(symbol, true, null, ethTransaction);
-        BigInteger receiptBlockNumber =
-                web3j.ethGetTransactionReceipt(transactionHash).send().getTransactionReceipt().get().getBlockNumber();
-
-        BigInteger latestBlockNumber = web3j.ethBlockNumber().send().getBlockNumber();
-        BigInteger blocksOnTop = latestBlockNumber.subtract(receiptBlockNumber).add(BigInteger.ONE);
         return blockResult;
     }
 
@@ -97,8 +92,14 @@ public class EthService extends BlockChainService {
     }
 
     @Override
-    protected BlockResult getConfirmation(String transactionHash) {
-        return null;
+    protected BlockResult getConfirmation(String transactionHash) throws Exception {
+        BigInteger receiptBlockNumber =
+                web3j.ethGetTransactionReceipt(transactionHash).send().getTransactionReceipt().get().getBlockNumber();
+        BigInteger latestBlockNumber = web3j.ethBlockNumber().send().getBlockNumber();
+        // blocks on top.
+        BigInteger confirmationCount = latestBlockNumber.subtract(receiptBlockNumber).add(BigInteger.ONE);
+        BlockResult blockResult = new BlockResult(symbol, true, null, confirmationCount);
+        return blockResult;
     }
 
     @Override

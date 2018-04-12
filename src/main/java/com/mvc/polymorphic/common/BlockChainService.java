@@ -56,7 +56,7 @@ public abstract class BlockChainService implements CommandLineRunner {
         return getService(serviceName).getConfirmation(transactionHash);
     }
 
-    protected abstract BlockResult getConfirmation(String transactionHash);
+    protected abstract BlockResult getConfirmation(String transactionHash) throws Exception;
 
     protected abstract void onTransaction(Object... objects);
 
