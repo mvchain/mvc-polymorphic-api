@@ -22,7 +22,7 @@ import static org.web3j.utils.Convert.fromWei;
 @Service(value = "EthService")
 public class EthService extends BlockChainService {
 
-    public static final String symbol = "ETH";
+    public static final String symbol = "eth";
 
     private String gethUrl;
 
