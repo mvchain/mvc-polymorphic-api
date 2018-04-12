@@ -26,7 +26,7 @@ public class BlockController extends BaseController {
     private BlockChainService blockChainService;
 
     @GetMapping("/{type}/{address}")
-    public Result<BlockResult> getBalance(@PathVariable String type, @PathVariable String address) {
+    public Result<BlockResult> getBalance(@PathVariable String type, @PathVariable String address) throws Exception {
         String serviceName = BlockServiceUtil.getServiceName(type);
         BlockResult result = blockChainService.getBalance(serviceName, address);
         return success(result);
