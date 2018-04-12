@@ -92,7 +92,8 @@ public class BchService extends BlockChainService {
 
     @Override
     protected BlockResult getConfirmation(String transactionHash) {
-        return null;
+        BchTransaction transaction = (BchTransaction) getTransactionByHash(transactionHash).getResult();
+        return tokenSuccess(TOKEN_NAME, transaction.getDepth());
     }
 
     @Override
@@ -106,6 +107,7 @@ public class BchService extends BlockChainService {
         String blockPath = tokenConfig.getPath().get(TOKEN_NAME).get(blockEnv);
         WalletAppKit kit = new WalletAppKit(getNetWork(blockEnv), new File(blockPath + blockEnv), DEFAULT_FILE_PREFIX);
         this.kit = kit;
+        System.out.println("BchService initialized and nothing happened.");
         startListen();
         // init wallet
         if (kit.wallet().getImportedKeys().size() == 0) {

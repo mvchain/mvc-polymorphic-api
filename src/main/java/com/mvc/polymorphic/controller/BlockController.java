@@ -40,7 +40,7 @@ public class BlockController extends BaseController {
     }
 
     @GetMapping("/{type}/confirmation/{hash}")
-    public Result<BlockResult> getconfirmation(@PathVariable String type, @PathVariable String hash) throws Exception {
+    public Result<BlockResult> getConfirmation(@PathVariable String type, @PathVariable String hash) throws Exception {
         String serviceName = BlockServiceUtil.getServiceName(type);
         BlockResult result = blockChainService.getConfirmation(serviceName, hash);
         return success(result);
