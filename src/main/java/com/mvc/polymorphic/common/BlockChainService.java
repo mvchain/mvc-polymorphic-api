@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
@@ -23,11 +24,11 @@ public abstract class BlockChainService implements CommandLineRunner {
         return service;
     }
 
-    public BlockResult getBalance(String serviceName, String address) {
+    public BlockResult getBalance(String serviceName, String address)throws Exception {
         return getService(serviceName).getBalance(address);
     }
 
-    protected abstract BlockResult getBalance(String address);
+    protected abstract BlockResult getBalance(String address) throws Exception;
 
 
     public BlockResult getTransactionByHash(String serviceName, String transactionHash) {

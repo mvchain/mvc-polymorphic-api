@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-@Service
+@Service(value = "BtcService")
 @Primary
 public class BtcService extends BlockChainService {
 

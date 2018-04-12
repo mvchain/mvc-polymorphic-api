@@ -24,7 +24,7 @@ public class BlockController {
     private BlockChainService blockChainService;
 
     @GetMapping("/{type}/{address}")
-    public Object getBalance(@PathVariable String type, @PathVariable String address) {
+    public Object getBalance(@PathVariable String type, @PathVariable String address) throws Exception {
         String serviceName = BlockServiceUtil.getServiceName(type);
         return blockChainService.getBalance(serviceName, address);
     }
