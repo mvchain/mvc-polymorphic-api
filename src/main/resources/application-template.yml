@@ -48,6 +48,17 @@ mvc:
       local: 123456
       test: 123456
       prod: 123456
+  gas:
+    eth:
+      local:
+        limit: 4300000
+        price: 22000000000
+      test:
+        limit: 4300000
+        price: 22000000000
+      prod:
+        limit: 430000
+        price: 2200000000
 
 org.ethereum:
 #    address: http://192.168.206.229:8545
