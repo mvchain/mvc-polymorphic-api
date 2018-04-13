@@ -35,15 +35,23 @@ public class BtcService extends BlockChainService {
     private static final String symbol = "btc";
     private final static String DEFAULT_FILE_PREFIX = "DEFAULT_FILE_PREFIX";
 
+    private boolean initFinished = false;
+
     private WalletAppKit kit;
 
     @Override
     public BlockResult getBalance(String address) {
-        return this.success(kit.wallet().getBalance().toFriendlyString());
+        if (!initFinished) {
+            return tokenFail(symbol, String.format("wallet is async, please wait, now height is %s", kit.wallet().getLastBlockSeenHeight()));
+        }
+        return tokenSuccess(symbol, kit.wallet().getBalance().toFriendlyString());
     }
 
     @Override
     public BlockResult getTransactionByHash(String transactionHash) {
+        if (!initFinished) {
+            return tokenFail(symbol, String.format("wallet is async, please wait, now height is %s", kit.wallet().getLastBlockSeenHeight()));
+        }
         org.bitcoinj.core.Transaction trans = kit.wallet().getTransaction(org.bitcoinj.core.Sha256Hash.wrap(transactionHash));
         BtcTransaction transaction = BtcTransaction.build(trans, kit.wallet());
         return tokenSuccess(symbol, transaction);
@@ -51,17 +59,30 @@ public class BtcService extends BlockChainService {
 
     @Override
     public BlockResult sendTransaction(String pass, String from, String to, BigDecimal value) {
+        if (!initFinished) {
+            return tokenFail(symbol, String.format("wallet is async, please wait, now height is %s", kit.wallet().getLastBlockSeenHeight()));
+        }
         return null;
     }
 
     @Override
+    /** Useless password. */
     public BlockResult newAccount(String pass) {
-        return null;
+        if (!initFinished) {
+            return tokenFail(symbol, String.format("wallet is async, please wait, now height is %s", kit.wallet().getLastBlockSeenHeight()));
+        }
+        Address address = kit.wallet().freshReceiveAddress();
+        kit.wallet().addWatchedAddress(address);
+        return tokenSuccess(symbol, address.toString());
     }
 
     @Override
     protected BlockResult getConfirmation(String transactionHash) {
-        return null;
+        if (!initFinished) {
+            return tokenFail(symbol, String.format("wallet is async, please wait, now height is %s", kit.wallet().getLastBlockSeenHeight()));
+        }
+        BtcTransaction transaction = (BtcTransaction) getTransactionByHash(transactionHash).getResult();
+        return tokenSuccess(symbol, transaction.getDepth());
     }
 
     @Override
@@ -84,6 +105,7 @@ public class BtcService extends BlockChainService {
             kit.wallet().importKeysAndEncrypt(Arrays.asList(ecKey), pass);
             kit.wallet().addWatchedAddress(ecKey.toAddress(kit.params()));
         }
+        initFinished = true;
         log.info(String.format("BtcService initialized and block path is: %s", path));
     }
 
@@ -150,9 +172,5 @@ public class BtcService extends BlockChainService {
             params = MainNetParams.get();
         }
         return params;
-    }
-
-    private BlockResult success(Object result) {
-        return new BlockResult(symbol, true, null, result);
     }
 }

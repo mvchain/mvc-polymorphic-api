@@ -7,6 +7,7 @@ import com.mvc.polymorphic.model.dto.SendTransactionDTO;
 import com.mvc.polymorphic.utils.BlockServiceUtil;
 import com.mvc.tools.controller.BaseController;
 import com.mvc.tools.pojo.Result;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +47,7 @@ public class BlockController extends BaseController {
         return success(result);
     }
 
+    @ApiOperation(value = "New Account", notes = "Currently, password is useless for BTC and BCH.")
     @PostMapping("/{type}/account")
     public Result<BlockResult> newAccount(@PathVariable String type, @Valid @RequestBody NewAccountDTO newAccountDTO) {
         String serviceName = BlockServiceUtil.getServiceName(type);
