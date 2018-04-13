@@ -1,7 +1,6 @@
 package com.mvc.polymorphic.controller;
 
 import com.mvc.polymorphic.model.dto.BalanceDTO;
-import com.mvc.polymorphic.model.dto.SendTransactionDTO;
 import com.mvc.polymorphic.model.dto.TransactionCountDTO;
 import com.mvc.polymorphic.service.ContractService;
 import com.mvc.polymorphic.service.RpcService;
@@ -9,7 +8,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.web3j.protocol.core.methods.request.Transaction;
 
 /**
  * Controller for our ERC-20 contract API.

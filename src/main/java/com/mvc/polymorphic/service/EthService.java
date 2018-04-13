@@ -4,29 +4,28 @@ import com.mvc.polymorphic.common.BlockChainService;
 import com.mvc.polymorphic.common.BlockException;
 import com.mvc.polymorphic.common.BlockResult;
 import com.mvc.polymorphic.configuration.TokenConfig;
-import com.mvc.polymorphic.utils.RSACoder;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
-import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.*;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.geth.Geth;
 import org.web3j.quorum.Quorum;
 import org.web3j.utils.Convert;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Optional;
 
 import static org.web3j.utils.Convert.fromWei;
 
 @Service(value = "EthService")
+@Log
 public class EthService extends BlockChainService {
 
     public static final String symbol = "eth";
@@ -114,6 +113,6 @@ public class EthService extends BlockChainService {
         gethUrl = tokenConfig.getUrl().get(symbol).get(env);
         gasLimit = tokenConfig.getGas().get(symbol).get(env).get("limit");
         gasPrice = tokenConfig.getGas().get(symbol).get(env).get("price");
-        System.out.println("EthService initialized and geth Url is :" + gethUrl);
+        log.info("EthService initialized and geth Url is :" + gethUrl);
     }
 }

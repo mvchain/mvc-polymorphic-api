@@ -1,9 +1,6 @@
 package com.mvc.polymorphic.common.interceptor;
 
 import com.mvc.tools.context.BaseContextHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;

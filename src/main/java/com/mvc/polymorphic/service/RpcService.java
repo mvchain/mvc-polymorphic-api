@@ -1,6 +1,5 @@
 package com.mvc.polymorphic.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.web3j.protocol.core.methods.request.Transaction;
 
 import java.io.IOException;

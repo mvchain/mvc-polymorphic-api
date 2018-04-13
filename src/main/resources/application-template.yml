@@ -44,6 +44,10 @@ mvc:
       test: '\opt\bitblock\bitcoincashj-blocks\'
       prod: '\opt\bitblock\bitcoincashj-blocks\'
   pass:
+    btc:
+      local: 123456
+      test: 123456
+      prod: 123456
     bch:
       local: 123456
       test: 123456
