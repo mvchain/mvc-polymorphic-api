@@ -19,6 +19,7 @@ import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
 import org.bitcoinj.wallet.listeners.WalletCoinsSentEventListener;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -58,11 +59,29 @@ public class BtcService extends BlockChainService {
     }
 
     @Override
-    public BlockResult sendTransaction(String pass, String from, String to, BigDecimal value) {
+    public BlockResult sendTransaction(String pass, String from, String to, BigDecimal value) throws Exception {
         if (!initFinished) {
             return tokenFail(symbol, String.format("wallet is async, please wait, now height is %s", kit.wallet().getLastBlockSeenHeight()));
         }
-        return null;
+        if (kit.wallet().isEncrypted()) {
+            Assert.isTrue(kit.wallet().checkPassword(pass), "password is wrong");
+            kit.wallet().decrypt(pass);
+        }
+        Coin parsedValue = Coin.parseCoin(value.toString());
+        // if the wallet have more than 1 ecKey, we need to choose one for pay
+        Address endcodedToAddress = Address.fromBase58(kit.params(), to);
+        Wallet.SendResult result = null;
+        try {
+            result = kit.wallet().sendCoins(kit.peerGroup(), endcodedToAddress, parsedValue);
+        } catch (InsufficientMoneyException e) {
+            throw e;
+        } finally {
+            if (!kit.wallet().isEncrypted()) {
+                kit.wallet().encrypt(pass);
+            }
+        }
+        log.info("coins sent. transaction hash: " + result.tx.getHashAsString());
+        return tokenSuccess(symbol, result.tx.getHashAsString());
     }
 
     @Override

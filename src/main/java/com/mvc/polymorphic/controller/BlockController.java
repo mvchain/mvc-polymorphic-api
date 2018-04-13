@@ -26,6 +26,7 @@ public class BlockController extends BaseController {
     @Autowired
     private BlockChainService blockChainService;
 
+    @ApiOperation(value = "New Account", notes = "Currently, the address is useless for BTC and BCH.")
     @GetMapping("/{type}/{address}")
     public Result<BlockResult> getBalance(@PathVariable String type, @PathVariable String address) throws Exception {
         String serviceName = BlockServiceUtil.getServiceName(type);
@@ -47,7 +48,7 @@ public class BlockController extends BaseController {
         return success(result);
     }
 
-    @ApiOperation(value = "New Account", notes = "Currently, password is useless for BTC and BCH.")
+    @ApiOperation(value = "New Account", notes = "Currently, the password is useless for BTC and BCH.")
     @PostMapping("/{type}/account")
     public Result<BlockResult> newAccount(@PathVariable String type, @Valid @RequestBody NewAccountDTO newAccountDTO) {
         String serviceName = BlockServiceUtil.getServiceName(type);
