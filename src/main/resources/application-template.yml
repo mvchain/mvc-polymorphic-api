@@ -1,10 +1,11 @@
 server:
-  port: 1989
+  port: 24842
 
 logging:
   level:
     com.mvc.ethereum: DEBUG
     com.mvc.bitcoincashj: ERROR
+    org.bitcoinj: ERROR
 
 mvc:
   env:
@@ -36,9 +37,13 @@ mvc:
   url:
     eth:
       local: http://127.0.0.1:8545
-      test: http://47.254.22.105:8545
-      prod: https://mvchain.xyz
+      test: http://127.0.0.1:8545
+      prod: http://127.0.0.1:8545
   path:
+    btc:
+      local: 'E:\bitblock\bitcoinj-blocks\'
+      test: '\opt\bitblock\bitcoinj-blocks\'
+      prod: '\opt\bitblock\bitcoinj-blocks\'
     bch:
       local: 'E:\bitblock\bitcoincashj-blocks\'
       test: '\opt\bitblock\bitcoincashj-blocks\'
@@ -75,11 +80,11 @@ cors:
 
 swagger:
   enabled: false
-  title: mvc-api-demo
-  description: mvc-api-demo
-  base-package:  com.mvc.ethereum.controller
+  title: mvc-polymorphic-api
+  description: mvc-polymorphic-api
+  base-package:  com.mvc.polymorphic.controller
   base-path: /**
   exclude-path: /error,/ops/**
   version: @project.version@
 
-trans.log.url: http://rinkeby.etherscan.io/api
+trans.log.url: http://etherscan.io/api

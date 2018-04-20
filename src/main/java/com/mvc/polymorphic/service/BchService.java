@@ -16,6 +16,7 @@ import com.mvc.polymorphic.common.BlockResult;
 import com.mvc.polymorphic.common.bean.BchTransaction;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -103,21 +104,26 @@ public class BchService extends BlockChainService {
 
     @Override
     public void run(String... args) throws Exception {
-        String blockEnv = tokenConfig.getEnv().get(TOKEN_NAME);
-        String blockPath = tokenConfig.getPath().get(TOKEN_NAME).get(blockEnv);
-        WalletAppKit kit = new WalletAppKit(getNetWork(blockEnv), new File(blockPath + blockEnv), DEFAULT_FILE_PREFIX);
-        this.kit = kit;
-        System.out.println("BchService initialized and nothing happened.");
-        startListen();
-        // init wallet
-        if (kit.wallet().getImportedKeys().size() == 0) {
-            String pass = tokenConfig.getPass().get(TOKEN_NAME).get(blockEnv);
-            ECKey ecKey = new ECKey();
-            kit.wallet().encrypt(pass);
-            kit.wallet().importKeysAndEncrypt(Arrays.asList(ecKey), pass);
-            kit.wallet().addWatchedAddress(ecKey.toAddress(kit.params()));
+
+        if (!StringUtils.isEmpty(tokenConfig.getEnv().get(TOKEN_NAME))) {
+            String blockEnv = tokenConfig.getEnv().get(TOKEN_NAME);
+            String blockPath = tokenConfig.getPath().get(TOKEN_NAME).get(blockEnv);
+            WalletAppKit kit = new WalletAppKit(getNetWork(blockEnv), new File(blockPath + blockEnv), DEFAULT_FILE_PREFIX);
+            this.kit = kit;
+            System.out.println("BCH Service initialized and nothing happened.");
+            startListen();
+            // init wallet
+            if (kit.wallet().getImportedKeys().size() == 0) {
+                String pass = tokenConfig.getPass().get(TOKEN_NAME).get(blockEnv);
+                ECKey ecKey = new ECKey();
+                kit.wallet().encrypt(pass);
+                kit.wallet().importKeysAndEncrypt(Arrays.asList(ecKey), pass);
+                kit.wallet().addWatchedAddress(ecKey.toAddress(kit.params()));
+            }
+            initFinished = true;
+        } else {
+            log.info("BCH not supported!");
         }
-        initFinished = true;
     }
 
     private void startListen() {

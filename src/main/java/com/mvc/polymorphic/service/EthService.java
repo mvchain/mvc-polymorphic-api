@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
@@ -108,11 +109,15 @@ public class EthService extends BlockChainService {
 
     @Override
     public void run(String... args) throws Exception {
-        String allEnv = tokenConfig.getEnv().get("all");
-        String env = allEnv != null ? allEnv : tokenConfig.getEnv().get(symbol);
-        gethUrl = tokenConfig.getUrl().get(symbol).get(env);
-        gasLimit = tokenConfig.getGas().get(symbol).get(env).get("limit");
-        gasPrice = tokenConfig.getGas().get(symbol).get(env).get("price");
-        log.info("EthService initialized and geth Url is :" + gethUrl);
+        if (!StringUtils.isEmpty(tokenConfig.getEnv().get(symbol))) {
+            String allEnv = tokenConfig.getEnv().get("all");
+            String env = allEnv != null ? allEnv : tokenConfig.getEnv().get(symbol);
+            gethUrl = tokenConfig.getUrl().get(symbol).get(env);
+            gasLimit = tokenConfig.getGas().get(symbol).get(env).get("limit");
+            gasPrice = tokenConfig.getGas().get(symbol).get(env).get("price");
+            log.info("ETH Service initialized and geth Url is :" + gethUrl);
+        } else {
+            log.info("ETH not supported!");
+        }
     }
 }

@@ -20,6 +20,7 @@ import org.bitcoinj.wallet.listeners.WalletCoinsSentEventListener;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -111,21 +112,26 @@ public class BtcService extends BlockChainService {
 
     @Override
     public void run(String... strings) throws Exception {
-        String allEnv = tokenConfig.getEnv().get("all");
-        String env = allEnv != null ? allEnv : tokenConfig.getEnv().get(symbol);
-        String path = tokenConfig.getPath().get(symbol).get(env);
-        kit = new WalletAppKit(this.getNetWork(env), new File(path + env), DEFAULT_FILE_PREFIX);
-        startListen();
-        // init wallet
-        if (kit.wallet().getImportedKeys().size() == 0) {
-            String pass = tokenConfig.getPass().get(symbol).get(env);
-            ECKey ecKey = new ECKey();
-            kit.wallet().encrypt(pass);
-            kit.wallet().importKeysAndEncrypt(Arrays.asList(ecKey), pass);
-            kit.wallet().addWatchedAddress(ecKey.toAddress(kit.params()));
+
+        if (!StringUtils.isEmpty(tokenConfig.getEnv().get(symbol))) {
+            String allEnv = tokenConfig.getEnv().get("all");
+            String env = allEnv != null ? allEnv : tokenConfig.getEnv().get(symbol);
+            String path = tokenConfig.getPath().get(symbol).get(env);
+            kit = new WalletAppKit(this.getNetWork(env), new File(path + env), DEFAULT_FILE_PREFIX);
+            startListen();
+            // init wallet
+            if (kit.wallet().getImportedKeys().size() == 0) {
+                String pass = tokenConfig.getPass().get(symbol).get(env);
+                ECKey ecKey = new ECKey();
+                kit.wallet().encrypt(pass);
+                kit.wallet().importKeysAndEncrypt(Arrays.asList(ecKey), pass);
+                kit.wallet().addWatchedAddress(ecKey.toAddress(kit.params()));
+            }
+            initFinished = true;
+            log.info(String.format("BTC Service initialized and block path is: %s", path));
+        } else {
+            log.info("BTC not supported!");
         }
-        initFinished = true;
-        log.info(String.format("BtcService initialized and block path is: %s", path));
     }
 
     private void startListen() {
